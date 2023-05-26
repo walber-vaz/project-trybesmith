@@ -12,4 +12,9 @@ const createToken = (payload: Jwt.JwtPayload): string => {
   return token;
 };
 
-export default createToken;
+const verifyToken = (token: string): string | Jwt.JwtPayload => {
+  const decoded = Jwt.verify(token, secret, CONFIG);
+  return decoded;
+};
+
+export default { createToken, verifyToken };

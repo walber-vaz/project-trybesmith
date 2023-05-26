@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import createToken from '../auth';
+import Jwt from '../auth';
 import LoginService from '../services/Login';
 
 class LoginController {
@@ -14,7 +14,7 @@ class LoginController {
 
     if (!passwordIsValid) return res.status(401).json({ message: 'Username or password invalid' });
 
-    const token = createToken({ id: user.dataValues.id, username: user.dataValues.username });
+    const token = Jwt.createToken({ id: user.dataValues.id, username: user.dataValues.username });
 
     return res.status(200).json({ token });
   }
