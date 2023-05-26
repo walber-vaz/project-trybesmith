@@ -1,7 +1,22 @@
-import express from 'express';
+import express, { Application } from 'express';
+import productRouter from './routers/product';
 
-const app = express();
+class App {
+  public readonly app: Application;
 
-app.use(express.json());
+  constructor() {
+    this.app = express();
+    this.middlewares();
+    this.routes();
+  }
 
-export default app;
+  private middlewares(): void {
+    this.app.use(express.json());
+  }
+
+  private routes(): void {
+    this.app.use('/products', productRouter);
+  }
+}
+
+export default new App().app;
